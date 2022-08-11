@@ -1,0 +1,73 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc -w",
+    "start": "node ./dist/app.js",
+    "start:dev": "nodemon ./dist/app.js",
+    "dev": "nodemon ./src/app.ts",
+    "heroku": "env NODE_PATH=dist node dist/app.js",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiXLtez/node-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PiXLtez/node-backend/issues"
+  },
+  "homepage": "https://github.com/PiXLtez/node-backend#readme",
+  "dependencies": {
+    "@taquito/signer": "^13.0.1",
+    "@taquito/taquito": "^13.0.1",
+    "@taquito/utils": "^13.0.1",
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-jwt": "^7.7.5",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.1",
+    "helmet": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.3",
+    "mongoose": "^6.3.5",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "stripe": "^9.10.0",
+    "typescript": "^4.7.3",
+    "winston": "^3.7.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/express-jwt": "^6.0.4",
+    "@types/express-session": "^1.17.4",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^17.0.40",
+    "@types/passport": "^1.0.8",
+    "@types/passport-local": "^1.0.34",
+    "@types/stripe": "^8.0.417",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/swagger-ui-express": "^4.1.3",
+    "nodemon": "^2.0.16",
+    "swagger-jsdoc": "^6.2.1",
+    "ts-node": "^10.8.1",
+    "tsconfig-paths": "^4.0.0"
+  },
+  "prettier": {
+    "singleQuote": true
+  }
+}
