@@ -2,7 +2,6 @@ import { pool } from 'database';
 
 export const getContract = async (address: string) => {
   const res = await pool.query(`SELECT * FROM "que_pasa"."contracts" WHERE address='${address}'`);
-  console.log('res', res)
   if (!res.rows || !res.rows.length) {
     return {};
   }
@@ -15,8 +14,6 @@ export const getLedgerValue = async (address: string, tokenId: string) => {
       FROM "entrycoin"."storage.ledger_live" 
       WHERE idx_address='${address}' AND idx_nat=${tokenId}`
   );
-  await pool.end();
-  console.log('res', res)
   if (res.rows && res.rows.length) {
     const item = res.rows[0];
     return {
