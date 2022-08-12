@@ -6,25 +6,26 @@ export const getContract = async (address: string) => {
   if (!res.rows || !res.rows.length) {
     return {};
   }
-
-  const contract = res.rows[0];
-  
-  
-  return res.rows;
+  return res.rows[0];
 };
 
-export const getBigmapValue = async (id: string, key: string) => {
-  const res = await pool.query(`
-    SELECT * 
+export const getLedgerValue = async (address: string, tokenId: string) => {
+  const res = await pool.query(
+    `SELECT * 
       FROM "entrycoin"."storage.ledger_live" 
-      WHERE 
-        bigmap_id=70393 AND
-        idx_address='tz1bxwduvRwBhq59FmThGKD5ceDFadr57JTq'
-  `);
+      WHERE idx_address='${address}' AND idx_nat=${tokenId}`
+  );
   await pool.end();
   console.log('res', res)
-  if (res.rows) {
-    
+  if (res.rows && res.rows.length) {
+    const item = res.rows[0];
+    return {
+      key: {
+        "0": address,
+        "1": tokenId,
+      },
+      value: item.nat
+    }
   }
-  return res.rows;
+  return {};
 };

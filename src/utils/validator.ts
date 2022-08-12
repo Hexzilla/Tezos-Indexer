@@ -17,7 +17,7 @@ export function createHandler(callback: (req: Request) => object) {
   return async (req: Request, res: Response) => {
     try {
       const data = await callback(req);
-      return res.json({ data: data })
+      return res.json(data)
     } catch (error: any) {
       console.error(error);
       return res.status(501).json({

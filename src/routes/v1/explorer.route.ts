@@ -11,8 +11,8 @@ router.get(
 );
 
 router.get(
-  '/bigmap/:id/:key',
-  handler(({ params }) => contractService.getBigmapValue(params.id, params.key))
+  '/ledger/:owner/:tokenId',
+  handler(({ params }) => contractService.getLedgerValue(params.owner, params.tokenId))
 );
 
 export const ExplorerRoutes: Router = router;
