@@ -1,10 +1,8 @@
 import { Router } from 'express';
-import { ContractRoutes } from './contract.route';
-import { QuestRoutes } from './quest.route';
+import { ExplorerRoutes } from './explorer.route';
 
 const router: Router = Router();
 
-router.use('/contract', ContractRoutes);
-router.use('/quest', QuestRoutes);
+router.use('/explorer', ExplorerRoutes);
 
 export const ApiRoutes: Router = router;

@@ -1,6 +1,5 @@
 import { Application, Request, Response } from 'express';
 import { IS_PRODUCTION } from './secrets';
-import logger from './logger';
 
 export interface NotFoundError extends Error {
   status?: number;
@@ -15,7 +14,7 @@ export function loadErrorHandlers(app: Application) {
   });
 
   app.use((err: any, req: Request, res: Response, next: any) => {
-    logger.error(err);
+    console.error(err);
     res.status(err.status || 500);
     res.json({
       errors: {

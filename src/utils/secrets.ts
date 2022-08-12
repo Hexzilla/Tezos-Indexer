@@ -13,7 +13,3 @@ export const LOG_DIRECTORY      = _.defaultTo(process.env.LOG_DIRECTORY, path.re
 export const JWT_SECRET         = _.defaultTo(process.env.JWT_SECRET, "jwtsecret");
 export const SESSION_SECRET     = _.defaultTo(process.env.SESSION_SECRET, "secret");
 
-export const MONGODB_URI        = _.defaultTo(process.env.MONGODB_URI, "");
-
-export const STRIPE_PUBLIC_KEY  = _.defaultTo(process.env.STRIPE_PUBLIC_KEY, "");
-export const STRIPE_PRIVATE_KEY = _.defaultTo(process.env.STRIPE_PRIVATE_KEY, "");
