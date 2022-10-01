@@ -9,5 +9,5 @@ export const Mainnet = {
 
 export const Testnet = {
   RPC: 'https://jakartanet.tezos.marigold.dev',
-  Tezrun: 'KT1KLyMmk1NG9KhyDmU8TTvebcLTXw16ykuE',
+  Tezrun: 'KT1DPVoEvys2XrRRiZzNQw7uBuQvb8Dmk1yo',
 };
