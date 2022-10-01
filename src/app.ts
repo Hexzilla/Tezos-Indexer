@@ -7,6 +7,7 @@ import { SESSION_SECRET, APP_PORT } from './utils/secrets';
 import { loadErrorHandlers } from './utils/error-handling';
 import { MainRouter } from './routes';
 import cors from './utils/cors';
+import * as raceController from './controllers/race.controller';
 
 const app = express();
 
@@ -33,5 +34,7 @@ app
     console.log(`server running on port : ${APP_PORT}`);
   })
   .on('error', (e) => console.error(e));
+
+raceController.start();
 
 export default app;

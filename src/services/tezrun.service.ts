@@ -1,6 +1,14 @@
 import { pool } from 'database';
+import { MichelsonMap, TezosToolkit } from '@taquito/taquito';
+import { InMemorySigner } from '@taquito/signer';
+import * as Config from '../config';
 
-const schema_name = 'tezrun';
+const SCHEMA_NAME = 'tezrun';
+
+const Tezos = new TezosToolkit(Config.Testnet.RPC);
+Tezos.setProvider({
+  signer: new InMemorySigner(Config.Admin.PrivateKey),
+});
 
 export const getContract = async (address: string) => {
   const res = await pool.query(
@@ -13,7 +21,7 @@ export const getContract = async (address: string) => {
 };
 
 export const getRaceState = async () => {
-  const res = await pool.query(`SELECT * FROM "${schema_name}"."storage_live"`);
+  const res = await pool.query(`SELECT * FROM "${SCHEMA_NAME}"."storage_live"`);
   if (res.rows && res.rows.length) {
     const item = res.rows[0];
     return {
@@ -32,7 +40,7 @@ export const getRaceState = async () => {
 export const getRewards = async (address: string) => {
   const res = await pool.query(
     `SELECT * 
-      FROM "${schema_name}"."storage.rewards_live" 
+      FROM "${SCHEMA_NAME}"."storage.rewards_live" 
       WHERE idx_address='${address}'`
   );
   if (res.rows && res.rows.length) {
@@ -44,3 +52,40 @@ export const getRewards = async (address: string) => {
   }
   return {};
 };
+
+export const readyRace = async () => {
+  try {
+    const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
+    const op = await contract.methods.ready_race(1).send();
+    console.log('ready_race', op)
+    return op.confirmation();
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+export const startRace = async () => {
+  try {
+    const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
+    const op = await contract.methods.start_race(0).send();
+    console.log('start_race', op)
+    return op.confirmation();
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+export const finishRace = async () => {
+  try {
+    const winner = 1 + Math.random() % 5;
+    const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
+    const op = await contract.methods.finish_race(winner).send();
+    console.log('finish_race', op)
+    return op.confirmation();
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
