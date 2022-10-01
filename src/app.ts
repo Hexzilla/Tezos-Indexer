@@ -35,6 +35,7 @@ app
   })
   .on('error', (e) => console.error(e));
 
+console.log('Start controller')
 raceController.start();
 
 export default app;
