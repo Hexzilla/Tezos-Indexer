@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { createHandler as handler, validate } from 'utils/validator';
-import * as tezrunService from 'services/tezrun.service';
+import { createHandler as handler, validate } from '../../utils/validator';
+import * as tezrunService from '../../services/tezrun.service';
 
 const router: Router = Router();
 

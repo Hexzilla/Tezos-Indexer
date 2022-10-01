@@ -1,5 +1,5 @@
 export const Admin = {
-  PrivateKey: 'edskRnbq3Sy3k2hRwL8BkJFnBMgBkxmr7j7vQbTqbydATpmYbn9MdPDpSimn7uWaaLddq5vsskqNibnqWKQ7CVh1Er5j3CKrmW',
+  PrivateKey: process.env.ADMIN_PRIVATE_KEY || ''
 }
 
 export const Mainnet = {

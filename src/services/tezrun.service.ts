@@ -1,7 +1,7 @@
-import { pool } from 'database';
-import { MichelsonMap, TezosToolkit } from '@taquito/taquito';
+import { TezosToolkit } from '@taquito/taquito';
 import { InMemorySigner } from '@taquito/signer';
 import * as Config from '../config';
+import { pool } from '../database';
 
 const SCHEMA_NAME = 'tezrun';
 
@@ -55,6 +55,7 @@ export const getRewards = async (address: string) => {
 
 export const readyRace = async () => {
   try {
+    console.log('ready_race_call')
     const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
     const op = await contract.methods.ready_race(1).send();
     console.log('ready_race', op)
@@ -67,6 +68,7 @@ export const readyRace = async () => {
 
 export const startRace = async () => {
   try {
+    console.log('start_race_call')
     const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
     const op = await contract.methods.start_race(0).send();
     console.log('start_race', op)
@@ -80,6 +82,7 @@ export const startRace = async () => {
 export const finishRace = async () => {
   try {
     const winner = 1 + Math.random() % 5;
+    console.log('finish_race_call, winner=', winner)
     const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
     const op = await contract.methods.finish_race(winner).send();
     console.log('finish_race', op)

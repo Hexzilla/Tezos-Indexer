@@ -1,5 +1,5 @@
 import moment from 'moment';
-import * as tezrun from 'services/tezrun.service';
+import * as tezrun from '../services/tezrun.service';
 
 const startRace = async () => {
   console.log('Controller, Start race');
@@ -11,7 +11,7 @@ const mainLoop = async () => {
   const race = await tezrun.getRaceState();
   console.log('Controller, race=', race)
 
-  if (race.status === 0) {
+  if (race.status === '1') {
     console.log('Controller, Race Ended')
 
     const startTime = moment(race.start_time);
