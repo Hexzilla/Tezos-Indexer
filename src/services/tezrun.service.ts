@@ -43,14 +43,7 @@ export const getTickets = async (address: string) => {
       FROM "${SCHEMA_NAME}"."storage.bets_live" 
       WHERE address='${address}'`
   );
-  if (res.rows && res.rows.length) {
-    const item = res.rows[0];
-    return {
-      address,
-      mutez: item.mutez,
-    };
-  }
-  return {};
+  return res.rows;
 }
 
 export const getRewards = async (address: string) => {
