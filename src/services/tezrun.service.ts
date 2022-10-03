@@ -66,7 +66,7 @@ export const readyRace = async () => {
   try {
     console.log('ready_race_call')
     const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
-    const op = await contract.methods.ready_race(60).send();
+    const op = await contract.methods.ready_race(300).send();
     console.log('ready_race', op?.hash)
     return op.confirmation();
   } catch (e) {
