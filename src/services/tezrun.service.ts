@@ -66,7 +66,7 @@ export const readyRace = async () => {
   try {
     console.log('ready_race_call')
     const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
-    const op = await contract.methods.ready_race(300).send();
+    const op = await contract.methods.ready_race().send();
     console.log('ready_race', op?.hash)
     return op.confirmation();
   } catch (e) {
@@ -95,7 +95,8 @@ export const finishRace = async () => {
     const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
     const op = await contract.methods.finish_race(winner).send();
     console.log('finish_race', op?.hash)
-    return op.confirmation();
+    //return op.confirmation();
+    return op;
   } catch (e) {
     console.error(e);
     return null;
