@@ -16,6 +16,11 @@ router.get(
 );
 
 router.get(
+  '/race/tickets/:address',
+  handler(({ params }) => tezrunService.getTickets(params.address))
+)
+
+router.get(
   '/race/finish',
   handler(() => tezrunService.finishRace())
 );
