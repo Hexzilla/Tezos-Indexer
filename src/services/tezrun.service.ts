@@ -66,7 +66,7 @@ export const getRewards = async (address: string) => {
 
 export const readyRace = async () => {
   try {
-    console.log('ready_race_call')
+    console.log('ready_race_call', Network.Tezrun)
     const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.ready_race().send();
     console.log('ready_race', op?.hash)
