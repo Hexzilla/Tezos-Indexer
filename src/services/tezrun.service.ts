@@ -5,7 +5,9 @@ import { pool } from '../database';
 
 const SCHEMA_NAME = 'tezrun';
 
-const Tezos = new TezosToolkit(Config.Testnet.RPC);
+const Network = Config.Mainnet;
+
+const Tezos = new TezosToolkit(Network.RPC);
 Tezos.setProvider({
   signer: new InMemorySigner(Config.Admin.PrivateKey),
 });
@@ -65,7 +67,7 @@ export const getRewards = async (address: string) => {
 export const readyRace = async () => {
   try {
     console.log('ready_race_call')
-    const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
+    const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.ready_race().send();
     console.log('ready_race', op?.hash)
     return op.confirmation();
@@ -78,7 +80,7 @@ export const readyRace = async () => {
 export const startRace = async () => {
   try {
     console.log('start_race_call')
-    const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
+    const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.start_race(0).send();
     console.log('start_race', op?.hash)
     return op.confirmation();
@@ -92,7 +94,7 @@ export const finishRace = async () => {
   try {
     const winner = Math.floor(1 + Math.random() % 6);
     console.log('finish_race_call, winner=', winner)
-    const contract = await Tezos.contract.at(Config.Testnet.Tezrun);
+    const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.finish_race(winner).send();
     console.log('finish_race', op?.hash)
     //return op.confirmation();
