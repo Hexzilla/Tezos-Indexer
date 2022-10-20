@@ -42,7 +42,7 @@ export const getRaceState = async () => {
 export const getTickets = async (address: string) => {
   const res = await pool.query(
     `SELECT * 
-      FROM "${SCHEMA_NAME}"."storage.bets_live" 
+      FROM "${SCHEMA_NAME}"."storage.tickets_live" 
       WHERE address='${address}'`
   );
   return res.rows;
