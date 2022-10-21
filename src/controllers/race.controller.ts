@@ -7,6 +7,12 @@ const startRace = async () => {
   console.log('Controller, Race get started');
 };
 
+const finishRace = async () => {
+  console.log('Controller, Finish race');
+  await tezrun.finishRace();
+  console.log('Controller, Race get finished');
+};
+
 const mainLoop = async () => {
   const race = await tezrun.getRaceState();
   console.log('Controller, race=', race)
@@ -19,6 +25,13 @@ const mainLoop = async () => {
     console.log('Controller, Remain Time=', remainTime)
     if (remainTime <= 0) {
       await startRace();
+    }
+  } else if (race.status === '2') {
+    const startTime = moment(race.start_time);
+    const elaspedTime = moment().diff(startTime, 'minutes');
+    console.log('Controller, Elasped Time=', elaspedTime)
+    if (elaspedTime >= 5) {
+      await finishRace();
     }
   }
 
