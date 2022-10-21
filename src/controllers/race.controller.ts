@@ -2,48 +2,44 @@ import moment from 'moment';
 import * as tezrun from '../services/tezrun.service';
 
 const startRace = async () => {
-  console.log('Controller, Start race');
-  await tezrun.startRace();
-  console.log('Controller, Race get started');
+  return await tezrun.startRace();
 };
 
 const finishRace = async () => {
-  console.log('Controller, Finish race');
-  await tezrun.finishRace();
-  console.log('Controller, Race get finished');
+  return await tezrun.finishRace();
 };
 
-let finished_time: any = null;
+const printLog = (text: string) => {
+  console.log(`Controller, ${text}`);
+};
 
 const mainLoop = async () => {
-  if (finished_time !== null) {
-    const elaspedTime = moment().diff(finished_time, 'minutes');
-    if (elaspedTime < 1) {
-      console.log('Controller, wait...')
-      return;
-    }
-    finished_time = null;
-  }
-
   const race = await tezrun.getRaceState();
-  console.log('Controller, race=', race.status)
+  printLog(`Race=${race.status}___________________`);
 
   if (race.status === '1') {
-    console.log('Controller, Race Ended')
-
     const startTime = moment(race.start_time);
     const remainTime = startTime.diff(moment(), 'minutes');
-    console.log('Controller, Remain Time=', remainTime)
+    printLog(`EndState Remain=${remainTime}`);
     if (remainTime <= 0) {
-      await startRace();
+      const op = await startRace();
+      console.log('Transaction', op);
+      if (!!op) {
+        setTimeout(() => mainLoop(), 60000);
+        return;
+      }
     }
   } else if (race.status === '2') {
     const startTime = moment(race.start_time);
     const elaspedTime = moment().diff(startTime, 'minutes');
-    console.log('Controller, Elasped Time=', elaspedTime)
+    printLog(`PlayState Elasped=${elaspedTime}`);
     if (elaspedTime >= 5) {
-      await finishRace();
-      finished_time = moment();
+      const op = await finishRace();
+      console.log('Transaction', op);
+      if (!!op) {
+        setTimeout(() => mainLoop(), 60000);
+        return;
+      }
     }
   }
 
@@ -53,8 +49,8 @@ const mainLoop = async () => {
 export const start = async () => {
   console.log('Controller');
 
-  await tezrun.readyRace();
-  console.log('Controller, Race is ready now');
+  //await tezrun.readyRace();
+  //console.log('Controller, Race is ready now');
 
-  setTimeout(() => mainLoop(), 5000);
+  setTimeout(() => mainLoop(), 1);
 };

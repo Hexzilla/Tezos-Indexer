@@ -97,8 +97,7 @@ export const finishRace = async () => {
     const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.finish_race(winner).send();
     console.log('finish_race', op?.hash)
-    //return op.confirmation();
-    return op;
+    return op.confirmation();
   } catch (e) {
     console.error(e);
     return null;
