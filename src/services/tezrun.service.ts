@@ -67,7 +67,8 @@ export const getRewards = async (address: string) => {
     const item = res.rows[0];
     return {
       address,
-      mutez: item.mutez,
+      tezos: Number(item.tezos),
+      tokens: Number(item.tokens),
     };
   }
   return {};
