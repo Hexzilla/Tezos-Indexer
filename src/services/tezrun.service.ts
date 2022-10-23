@@ -101,7 +101,7 @@ export const startRace = async () => {
 
 export const finishRace = async () => {
   try {
-    const winner = Math.floor(1 + Math.random() % 6);
+    const winner = 1;//Math.floor(1 + Math.random() % 6);
     console.log('finish_race_call, winner=', winner)
     const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.finish_race(winner).send();
