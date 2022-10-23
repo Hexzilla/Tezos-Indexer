@@ -4,7 +4,7 @@ export const Admin = {
 
 export const Mainnet = {
   RPC: 'https://mainnet.api.tez.ie',
-  Tezrun: 'KT1EEtxiV2qpGrQbG61gCB3gtVWiARxbEv1d',
+  Tezrun: 'KT1TK9GheViS3Z8hJSjZnBo7324rXnFtnYGC', //'KT1EEtxiV2qpGrQbG61gCB3gtVWiARxbEv1d',
 };
 
 export const Testnet = {
