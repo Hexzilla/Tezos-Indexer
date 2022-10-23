@@ -48,6 +48,15 @@ export const getTickets = async (address: string) => {
   return res.rows;
 }
 
+export const getGameStatus = async (address: string) => {
+  const race = await getRaceState();
+  const tickets = await getTickets(address);
+  return {
+    race,
+    tickets,
+  }
+};
+
 export const getRewards = async (address: string) => {
   const res = await pool.query(
     `SELECT * 

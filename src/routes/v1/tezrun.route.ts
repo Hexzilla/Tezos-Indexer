@@ -11,6 +11,11 @@ router.get(
 );
 
 router.get(
+  '/status/:address',
+  handler(({ params }) => tezrunService.getGameStatus(params.address))
+);
+
+router.get(
   '/race/status',
   handler(() => tezrunService.getRaceState())
 );
