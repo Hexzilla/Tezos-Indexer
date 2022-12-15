@@ -120,12 +120,15 @@ export const startRace = async () => {
   }
 };
 
-export const finishRace = async () => {
+export const finishRace = async (winner: string | undefined) => {
   try {
-    const winner = Math.floor(1 + Math.random() % 6);
-    console.log('finish_race_call, winner=', winner);
+    console.log('finish_race_call, winner from param', winner);
+    const winnerId = winner
+      ? Number(winner)
+      : Math.floor(1 + (Math.random() % 6));
+    console.log('finish_race_call, winner=', winnerId);
     const contract = await Tezos.contract.at(Network.Tezrun);
-    const op = await contract.methods.finish_race(winner).send();
+    const op = await contract.methods.finish_race(winnerId).send();
     console.log('finish_race', op?.hash);
     return op.confirmation();
   } catch (e) {

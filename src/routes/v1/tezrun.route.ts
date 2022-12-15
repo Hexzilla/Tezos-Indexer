@@ -37,7 +37,7 @@ router.get(
 
 router.get(
   '/race/finish',
-  handler(() => tezrunService.finishRace())
+  handler(({ params }) => tezrunService.finishRace(params.winner))
 );
 
 router.get(
