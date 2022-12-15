@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { TezosToolkit } from '@taquito/taquito';
 import { InMemorySigner } from '@taquito/signer';
 import * as Config from '../config';
@@ -22,8 +23,15 @@ export const getContract = async (address: string) => {
   return res.rows[0];
 };
 
+export const getStorage = () => {
+  const url = `https://api.tzstats.com/explorer/contract/KT1TK9GheViS3Z8hJSjZnBo7324rXnFtnYGC/storage`;
+  return axios.get(url).then((res: any) => {
+    return res.data;
+  });
+};
+
 export const getRaceState = async () => {
-  const res = await pool.query(`SELECT * FROM "${SCHEMA_NAME}"."storage_live"`);
+  /*const res = await pool.query(`SELECT * FROM "${SCHEMA_NAME}"."storage_live"`);
   if (res.rows && res.rows.length) {
     const item = res.rows[0];
     return {
@@ -36,7 +44,19 @@ export const getRaceState = async () => {
       winner: item.winner,
     };
   }
-  return {};
+  return {};*/
+  return getStorage().then((storage) => {
+    const value = storage.value;
+    return {
+      admin: value.admin,
+      paused: value.paused,
+      race_id: value.race_id,
+      ready_time: value.ready_time,
+      start_time: value.start_time,
+      status: value.status,
+      winner: value.winner,
+    };
+  });
 };
 
 export const getTickets = async (address: string) => {
@@ -46,7 +66,7 @@ export const getTickets = async (address: string) => {
       WHERE address='${address}'`
   );
   return res.rows;
-}
+};
 
 export const getGameStatus = async (address: string) => {
   const race = await getRaceState();
@@ -54,7 +74,7 @@ export const getGameStatus = async (address: string) => {
   return {
     race,
     tickets,
-  }
+  };
 };
 
 export const getRewards = async (address: string) => {
@@ -76,40 +96,40 @@ export const getRewards = async (address: string) => {
 
 export const readyRace = async () => {
   try {
-    console.log('ready_race_call', Network.Tezrun)
+    console.log('ready_race_call', Network.Tezrun);
     const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.ready_race().send();
-    console.log('ready_race', op?.hash)
+    console.log('ready_race', op?.hash);
     return op.confirmation();
   } catch (e) {
     console.error(e);
     return null;
   }
-}
+};
 
 export const startRace = async () => {
   try {
-    console.log('start_race_call')
+    console.log('start_race_call');
     const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.start_race(0).send();
-    console.log('start_race', op?.hash)
+    console.log('start_race', op?.hash);
     return op.confirmation();
   } catch (e) {
     console.error(e);
     return null;
   }
-}
+};
 
 export const finishRace = async () => {
   try {
-    const winner = 1;//Math.floor(1 + Math.random() % 6);
-    console.log('finish_race_call, winner=', winner)
+    const winner = 1; //Math.floor(1 + Math.random() % 6);
+    console.log('finish_race_call, winner=', winner);
     const contract = await Tezos.contract.at(Network.Tezrun);
     const op = await contract.methods.finish_race(winner).send();
-    console.log('finish_race', op?.hash)
+    console.log('finish_race', op?.hash);
     return op.confirmation();
   } catch (e) {
     console.error(e);
     return null;
   }
-}
+};
