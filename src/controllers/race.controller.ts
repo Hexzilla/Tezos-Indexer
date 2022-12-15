@@ -33,7 +33,7 @@ const mainLoop = async () => {
     const startTime = moment(race.start_time);
     const elaspedTime = moment().diff(startTime, 'minutes');
     printLog(`PlayState Elasped=${elaspedTime}`);
-    if (elaspedTime >= 5) {
+    if (elaspedTime >= 10) {
       const op = await finishRace();
       console.log('Transaction', op);
       if (!!op) {
