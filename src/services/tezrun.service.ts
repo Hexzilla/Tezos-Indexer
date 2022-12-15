@@ -120,7 +120,7 @@ export const startRace = async () => {
   }
 };
 
-export const finishRace = async (winner: string | undefined) => {
+export const finishRace = async (winner: string | undefined = undefined) => {
   try {
     console.log('finish_race_call, winner from param', winner);
     const winnerId = winner
