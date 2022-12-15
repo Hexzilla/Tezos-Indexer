@@ -17,7 +17,7 @@ const mainLoop = async () => {
   const race = await tezrun.getRaceState();
   printLog(`Race=${race.status}___________________`);
 
-  if (race.status === '1') {
+  if (race.status === '1') { //Ready
     const startTime = moment(race.start_time);
     const remainTime = startTime.diff(moment(), 'minutes');
     printLog(`EndState Remain=${remainTime}`);
@@ -29,7 +29,7 @@ const mainLoop = async () => {
         return;
       }
     }
-  } else if (race.status === '2') {
+  } else if (race.status === '2') { //Started
     const startTime = moment(race.start_time);
     const elaspedTime = moment().diff(startTime, 'minutes');
     printLog(`PlayState Elasped=${elaspedTime}`);
