@@ -52,5 +52,5 @@ export const start = async () => {
   //await tezrun.readyRace();
   //console.log('Controller, Race is ready now');
 
-  // setTimeout(() => mainLoop(), 1);
+  setTimeout(() => mainLoop(), 1);
 };
