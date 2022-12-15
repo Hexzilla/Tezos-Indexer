@@ -17,7 +17,11 @@ const mainLoop = async () => {
   const race = await tezrun.getRaceState();
   printLog(`Race=${race.status}___________________`);
 
-  if (race.status === '1') { //Ready
+  if (race.status === '0') {
+    printLog(`InitState`);
+    const op = await tezrun.readyRace();
+    console.log('Transaction', op);
+  } else if (race.status === '1') { //Ready
     const startTime = moment(race.start_time);
     const remainTime = startTime.diff(moment(), 'minutes');
     printLog(`EndState Remain=${remainTime}`);
