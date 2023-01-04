@@ -24,7 +24,7 @@ export const getContract = async (address: string) => {
 };
 
 export const getStorage = () => {
-  const url = `https://api.tzstats.com/explorer/contract/KT1SabQEuqzxrwp6caZyXPXpt98FhHoPB5NZ/storage`;
+  const url = `https://api.tzstats.com/explorer/contract/${Config.Mainnet.Tezrun}/storage`;
   return axios.get(url).then((res: any) => {
     return res.data;
   });
