@@ -29,13 +29,13 @@ app.use('/', MainRouter);
 
 loadErrorHandlers(app);
 
+console.log('Start controller')
+raceController.start();
+
 app
   .listen(APP_PORT, () => {
     console.log(`server running on port : ${APP_PORT}`);
   })
   .on('error', (e) => console.error(e));
-
-console.log('Start controller')
-raceController.start();
 
 export default app;
